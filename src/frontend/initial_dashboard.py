@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px 
 
 
-API_URL = ####
+API_URL = "http://localhost:8000/data/retrieve"
 
 st.set_page_config(page_title="Global Education Dashboard", layout="wide")
 st.title("🌍 Global Education Analysis")
@@ -20,8 +20,8 @@ try:
     all_countries = df['Countries and Areas'].unique()
     selected_countries = st.sidebar.multiselect("Select Countries", options=all_countries)
 
-    if selected_countriescountries:
-        df = df[df['Countries and Areas'].isin(selected_countriescountries)]
+    if selected_countries:
+        df = df[df['Countries and Areas'].isin(selected_countries)]
 
     #displaying data table   
     st.subheader("Dataset Overview")
