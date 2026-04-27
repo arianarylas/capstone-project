@@ -1,3 +1,4 @@
+'''
 Capstone Proposal: Global Education Access Dashboard
 
 Project Overview
@@ -32,4 +33,4 @@ Build a FastAPI backend with a minimum of three functional REST API endpoints co
 Store and retrieve raw datasets using Google Cloud Storage with a documented ingestion pipeline.
 Deploy an automated CI/CD pipeline using GitHub Actions.
 Deliver actionable insights on education access disparities across at least five world regions.
-
+'''
