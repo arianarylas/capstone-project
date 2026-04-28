@@ -1,3 +1,4 @@
+'''
 Capstone Proposal: Global Education Access Dashboard
 
 Project Overview
@@ -7,7 +8,7 @@ Social Impact
 Access to quality education is necessary to reduce poverty and inequalities. Though global progress is shown, there are still millions of children who are not in school, and gender gaps still exist across many regions in education. THis dashboard aims to make complex education data accessible and interpretable. To make the data more easy to understand, enforces the decision makers to enforce policy with clear, visual evidence to advocate for change.
 
 Dataset Selection
-The dataset we’ve chosen is the Global Education dataset published on Kaggle by imtkaggleteam, and is originally sourced from the UNESCO Institute for Statistics (UIS). It contains country-level data including primary and secondary enrollment rates, literacy rates by gender, out-of-school children, and education expenditure. This dataset was chosen because of its depth, credibility, and relevance to social impact. Its global representation enables meaningful comparisons through countries and regions.
+The dataset weve chosen is the Global Education dataset published on Kaggle by imtkaggleteam, and is originally sourced from the UNESCO Institute for Statistics (UIS). It contains country-level data including primary and secondary enrollment rates, literacy rates by gender, out-of-school children, and education expenditure. This dataset was chosen because of its depth, credibility, and relevance to social impact. Its global representation enables meaningful comparisons through countries and regions.
 
 Technical Architecture
 Our application is built using Backend - FastAPI, Database - SQLite for structured data storage, Cloud Storage- Google Cloud Storage for raw data and backups, Frontend - Streamlit for interactive data visualization and user interaction, CI/CD - Github Actions
@@ -32,4 +33,4 @@ Build a FastAPI backend with a minimum of three functional REST API endpoints co
 Store and retrieve raw datasets using Google Cloud Storage with a documented ingestion pipeline.
 Deploy an automated CI/CD pipeline using GitHub Actions.
 Deliver actionable insights on education access disparities across at least five world regions.
-
+'''

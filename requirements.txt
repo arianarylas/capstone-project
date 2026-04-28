@@ -1,4 +1,5 @@
 streamlit
+streamlit 
 pandas
 plotly
 requests
@@ -9,4 +10,8 @@ pydantic
 python-dotenv
 google-cloud-storage
 pytest
+python-dotenv
+pytest
+flake8
+pytest-cov
 httpx
