@@ -60,7 +60,7 @@ def load_data():
 
     # Sheet 2 - Learning Adjusted
     if db.query(LearningAdjusted).first() is None:
-        df = pd.read_csv(os.path.join(data_dir, "src/backend/data/2- learning-adjusted-years-of-school-lays.csv"))
+        df = pd.read_csv(os.path.join(data_dir, "2- learning-adjusted-years-of-school-lays.csv"))
         df = clean_columns(df)
         df = df.rename(columns={
             "learning-adjusted_years_of_school": "learning_adjusted_years",
@@ -76,7 +76,7 @@ def load_data():
 
     # Sheet 3 - Out of School
     if db.query(OutOfSchool).first() is None:
-        df = pd.read_csv(os.path.join(data_dir, "src/backend/data/3- number-of-out-of-school-children.csv"))
+        df = pd.read_csv(os.path.join(data_dir, "3- number-of-out-of-school-children.csv"))
         df = clean_columns(df)
         df = df.rename(columns={
             "out-of-school_children_adolescents_and_youth_of_primary_and_secondary_school_age_male_number":   "out_of_school_males",
@@ -94,7 +94,7 @@ def load_data():
 
     # Sheet 4 - Gender Gap
     if db.query(GenderGap).first() is None:
-        df = pd.read_csv(os.path.join(data_dir, "src/backend/data/4- gender-gap-education-levels.csv"))
+        df = pd.read_csv(os.path.join(data_dir, "4- gender-gap-education-levels.csv"))
         df = clean_columns(df)
         df = df.rename(columns={
             "combined_gross_enrolment_ratio_for_tertiary_education_female": "tertiary_female_enrollment",
