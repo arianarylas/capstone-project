@@ -2,9 +2,9 @@ from fastapi import FastAPI, Depends
 from fastapi.security import HTTPBasicCredentials
 from pydantic import BaseModel
 from sqlalchemy.orm import Session, joinedload
-from database import SessionLocal, engine, get_db
+from src.backend.database import SessionLocal, engine, get_db
 import uvicorn
-from models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
+from src.backend.models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
 
 
 app = FastAPI(title="Global Education API")
