@@ -44,17 +44,17 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Configure Docker
-        run: gcloud auth configure-docker
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build and Push Container
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-backend:latest .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-backend:latest
+          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/education-repo/fastapi-backend:latest .
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/education-repo/fastapi-backend:latest
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy education-api \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-backend:latest \
+            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/education-repo/fastapi-backend:latest \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated
