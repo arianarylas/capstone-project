@@ -20,13 +20,14 @@ selected_label = st.sidebar.selectbox("Choose a Dataset", options=list(dataset_o
 endpoint = dataset_options[selected_label]
 
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = "https://education-api-329670330214.us-central1.run.app"
 API_URL = f"{BASE_URL}/{endpoint}"
 
 try:
     response = requests.get(API_URL)
     response.raise_for_status()
     df = pd.DataFrame(response.json())
+    st.write(df.columns.tolist())
    
     #sidebar filters
     st.sidebar.header("Filters")
