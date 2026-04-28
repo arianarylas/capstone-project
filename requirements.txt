@@ -7,3 +7,6 @@ uvicorn
 sqlalchemy
 pydantic
 python-dotenv
+google-cloud-storage
+pytest
+httpx
