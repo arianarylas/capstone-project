@@ -7,6 +7,8 @@ import uvicorn
 from src.backend.models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
 
 
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(title="Global Education API")
 
 @app.get("/")
