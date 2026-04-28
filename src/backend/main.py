@@ -5,11 +5,19 @@ from sqlalchemy.orm import Session, joinedload
 from src.backend.database import SessionLocal, engine, get_db
 import uvicorn
 from src.backend.models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
-
+from src.backend.setup import load_data
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Global Education API")
+
+db = SessionLocal()
+try:
+    if db.query(Education).first() is None:
+        print("Cloud database is empty. Seeding data...")
+        load_data()
+finally:
+    db.close()
 
 @app.get("/")
 def root():
