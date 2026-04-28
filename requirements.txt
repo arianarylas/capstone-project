@@ -1,3 +1,4 @@
+streamlit
 streamlit 
 pandas
 plotly
@@ -5,6 +6,10 @@ requests
 fastapi
 uvicorn
 sqlalchemy
+pydantic
+python-dotenv
+google-cloud-storage
+pytest
 python-dotenv
 pytest
 flake8
