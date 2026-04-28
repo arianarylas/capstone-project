@@ -6,18 +6,25 @@ from src.backend.database import SessionLocal, engine, get_db
 import uvicorn
 from src.backend.models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
 from src.backend.setup import load_data
+import threading
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Global Education API")
 
-db = SessionLocal()
-try:
-    if db.query(Education).first() is None:
-        print("Cloud database is empty. Seeding data...")
-        load_data()
-finally:
-    db.close()
+
+def run_seed():
+    db = SessionLocal()
+    try:
+        if db.query(Education).first() is None:
+            print("Cloud database is empty. Seeding data in background...")
+            load_data()
+    finally:
+        db.close()
+
+Base.metadata.create_all(bind=engine)
+thread = threading.Thread(target=run_seed)
+thread.start()
 
 @app.get("/")
 def root():
