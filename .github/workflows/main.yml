@@ -34,24 +34,28 @@ jobs:
           # The --cov-report=term-missing flag shows exactly which lines are NOT covered
           pytest --cov=src --cov=frontend --cov-report=term-missing
 
-  deploy:
+deploy:
     needs: test-and-lint # Only deploy if tests pass
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Note: For Google Cloud Run deployment, you will need to:
-      # 1. Set up a Service Account in Google Cloud Console
-      # 2. Add GCP_CREDENTIALS to your GitHub Repository Secrets
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: diesel-octane-486921-h0
+
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: fastapi-backend
-          region: us-east1 # Or your preferred region
-          source: ./ # Assumes your Dockerfile is in the root
+          region: us-east1
+          source: ./
+          # This forces the deployer to use your specific project ID
+          project_id: diesel-octane-486921-h0
