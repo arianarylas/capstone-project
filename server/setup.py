@@ -1,6 +1,6 @@
 import pandas as pd
 from database import engine, SessionLocal
-from models import Base, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
+from models import Base, Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
 
 def clean_columns(df):
     df.columns = (
@@ -15,6 +15,23 @@ def clean_columns(df):
     )
     return df
 
+def make_education(db, row):
+    """Get or create an Education record for a given Entity/Code/Year combo."""
+    edu = db.query(Education).filter_by(
+        Entity=row.get("entity"),
+        Code=row.get("code"),
+        Year=row.get("year"),
+    ).first()
+    if not edu:
+        edu = Education(
+            Entity=row.get("entity"),
+            Code=row.get("code"),
+            Year=row.get("year"),
+        )
+        db.add(edu)
+        db.flush()  # populate edu.id
+    return edu
+
 def load_data():
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
@@ -28,10 +45,9 @@ def load_data():
             "share_of_population_with_some_formal_education_1820-2020": "some_formal_education",
         })
         for _, row in df.iterrows():
+            edu = make_education(db, row)
             db.add(FormalEducation(
-                Entity=row.get("Entity"),
-                Code=row.get("Code"),
-                Year=row.get("Year"),
+                education_id=edu.id,
                 no_formal_education=row.get("no_formal_education"),
                 some_formal_education=row.get("some_formal_education"),
             ))
@@ -46,10 +62,9 @@ def load_data():
             "learning-adjusted_years_of_school": "learning_adjusted_years",
         })
         for _, row in df.iterrows():
+            edu = make_education(db, row)
             db.add(LearningAdjusted(
-                Entity=row.get("Entity"),
-                Code=row.get("Code"),
-                Year=row.get("Year"),
+                education_id=edu.id,
                 learning_adjusted_years=row.get("learning_adjusted_years"),
             ))
         db.commit()
@@ -64,10 +79,9 @@ def load_data():
             "out-of-school_children_adolescents_and_youth_of_primary_and_secondary_school_age_female_number": "out_of_school_females",
         })
         for _, row in df.iterrows():
+            edu = make_education(db, row)
             db.add(OutOfSchool(
-                Entity=row.get("Entity"),
-                Code=row.get("Code"),
-                Year=row.get("Year"),
+                education_id=edu.id,
                 out_of_school_males=row.get("out_of_school_males"),
                 out_of_school_females=row.get("out_of_school_females"),
             ))
@@ -87,10 +101,9 @@ def load_data():
             "combined_total_net_enrolment_rate_primary_male":               "primary_male_enrollment",
         })
         for _, row in df.iterrows():
+            edu = make_education(db, row)
             db.add(GenderGap(
-                Entity=row.get("Entity"),
-                Code=row.get("Code"),
-                Year=row.get("Year"),
+                education_id=edu.id,
                 tertiary_female_enrollment=row.get("tertiary_female_enrollment"),
                 tertiary_male_enrollment=row.get("tertiary_male_enrollment"),
                 secondary_male_enrollment=row.get("secondary_male_enrollment"),
