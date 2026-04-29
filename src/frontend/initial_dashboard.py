@@ -31,7 +31,15 @@ try:
    
     #sidebar filters
     st.sidebar.header("Filters")
-    all_countries = df['entity'].unique()
+# Replace your current all_countries line with this 'Safety Net'
+    if not df.empty and 'entity' in df.columns:
+        all_countries = df['entity'].unique()
+    else:
+        st.warning("The Cloud Database is still waking up. Please wait 60 seconds and refresh.")
+        st.stop() # This prevents the 'entity' error from happening
+    if selected_countries:
+        df = df[df['entity'].isin(selected_countries)]
+
     selected_countries = st.sidebar.multiselect("Select Countries", options=all_countries)
 
     if selected_countries:
