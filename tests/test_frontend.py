@@ -1,4 +1,7 @@
 import pandas as pd
+from src.backend.database import Base, get_db
+from src.backend.models import Education, FormalEducation
+from src.backend.main import app
 
 def test_data_filtering():
     #mock data

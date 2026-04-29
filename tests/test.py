@@ -3,9 +3,17 @@ import os
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from database import Base, get_db
-from models import Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
-from main import app
+from src.backend.database import Base, get_db
+from src.backend.models import Education, FormalEducation, LearningAdjusted, OutOfSchool, GenderGap
+from src.backend.main import app
+from src.backend.setup import load_data
+
+def test_load_data_integration(db):
+    # This will trigger the logic in setup.py
+    load_data()
+    # Check if at least one table now has data
+    result = db.query(Education).first()
+    assert result is not None
 
 TEST_DATABASE_URL = "sqlite:///./test.db"
 

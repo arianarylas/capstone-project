@@ -20,7 +20,7 @@ selected_label = st.sidebar.selectbox("Choose a Dataset", options=list(dataset_o
 endpoint = dataset_options[selected_label]
 
 
-BASE_URL = "https://education-api-329670330214.us-central1.run.app"
+BASE_URL = "http://localhost:8000"
 API_URL = f"{BASE_URL}/{endpoint}"
 
 try:
@@ -31,19 +31,14 @@ try:
    
     #sidebar filters
     st.sidebar.header("Filters")
-# Replace your current all_countries line with this 'Safety Net'
-    if not df.empty and 'entity' in df.columns:
-        all_countries = df['entity'].unique()
-    else:
-        st.warning("The Cloud Database is still waking up. Please wait 60 seconds and refresh.")
-        st.stop() # This prevents the 'entity' error from happening
-    if selected_countries:
-        df = df[df['entity'].isin(selected_countries)]
+    
 
+    all_countries = df['entity'].unique()
     selected_countries = st.sidebar.multiselect("Select Countries", options=all_countries)
 
     if selected_countries:
-        df = df[df['entity'].isin(selected_countries)]
+        df = df[df['entity'].isin(selected_countries)]  
+
 
     #display data
     st.subheader(f"Dataset Overview: {selected_label}")
