@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Depends
 from fastapi.security import HTTPBasicCredentials
 from pydantic import BaseModel
@@ -12,19 +13,6 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Global Education API")
 
-
-def run_seed():
-    db = SessionLocal()
-    try:
-        if db.query(Education).first() is None:
-            print("Cloud database is empty. Seeding data in background...")
-            load_data()
-    finally:
-        db.close()
-
-Base.metadata.create_all(bind=engine)
-thread = threading.Thread(target=run_seed)
-thread.start()
 
 @app.get("/")
 def root():

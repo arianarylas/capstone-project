@@ -6,8 +6,8 @@ venv/
 .env
 
 # Database
-*.db
-*.sqlite3
+#*.db
+#*.sqlite3
 
 # GCP credentials
 *.json
